@@ -22,39 +22,36 @@ public class ActivityStart extends Activity implements OnClickListener {
 
 	Button button3;
 	ImageView imgAssets;
-	
+
 	@Override
-	 public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 
-	  super.onCreate(savedInstanceState);
-	  requestWindowFeature(Window.FEATURE_NO_TITLE);
-      getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-      WindowManager.LayoutParams.FLAG_FULLSCREEN);
-	  setContentView(R.layout.activity_start);
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.activity_start);
 
-	  imgAssets = (ImageView) findViewById(R.id.imageView1);
-	  button3 = (Button) findViewById(R.id.button3);	
-	  button3.setBackgroundColor(Color.BLACK);
-	  button3.setOnClickListener((android.view.View.OnClickListener) this);
-	  AssetManager assetManager = getAssets();
-	  
-	
-	
-	 try {
-	      // get input stream
-	      InputStream is = assetManager.open("drawing_title.png");
+		imgAssets = (ImageView) findViewById(R.id.imageView1);
+		button3 = (Button) findViewById(R.id.button3);
+		button3.setBackgroundColor(Color.BLACK);
+		button3.setOnClickListener((android.view.View.OnClickListener) this);
+		AssetManager assetManager = getAssets();
 
-	      // create drawable from stream
-	      Drawable d = Drawable.createFromStream(is, null);
 
-	      // set the drawable to imageview
-	      imgAssets.setImageDrawable(d);
-	     }
-	     catch(IOException e) {
-	      return;
-	     }
+		try {
+			// get input stream
+			InputStream is = assetManager.open("drawing_title.png");
+
+			// create drawable from stream
+			Drawable d = Drawable.createFromStream(is, null);
+
+			// set the drawable to imageview
+			imgAssets.setImageDrawable(d);
+		} catch (IOException e) {
+			return;
+		}
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -72,12 +69,11 @@ public class ActivityStart extends Activity implements OnClickListener {
 
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	@Override
 	public void onClick(View v) {
 		startActivity(new Intent(this, MainActivity.class));
 	}
-	
-	
-	
+
+
 }

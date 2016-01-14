@@ -47,44 +47,43 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	boolean ready = true;
 	ImageButton blackbtn, graybtn, redbtn, orangebtn, yellowbtn, greenbtn, bluebtn, purplebtn;
 
-	
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-        WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_main);
-		
+
 		customCanvas = (Drawing) findViewById(R.id.signature_canvas);
 		customCanvas.setBackgroundColor(Color.WHITE);
-		
-		
+
+
 		wordbtn = (ImageButton) findViewById(R.id.wordbtn);
 		undobtn = (ImageButton) findViewById(R.id.undobtn);
 		clearbtn = (ImageButton) findViewById(R.id.clearbtn);
 		eraserbtn = (ImageButton) findViewById(R.id.eraserbtn);
-		
+
 		wordbtn.setBackgroundResource(android.R.drawable.btn_default);
 		undobtn.setBackgroundResource(android.R.drawable.btn_default);
 		clearbtn.setBackgroundResource(android.R.drawable.btn_default);
 		eraserbtn.setBackgroundResource(android.R.drawable.btn_default);
-		
+
 		textView1 = (TextView) findViewById(R.id.textView1);
 		rel1 = (RelativeLayout) findViewById(R.id.RelativeLayout1);
 		handler = new Handler();
-		
-		
-		blackbtn = (ImageButton)findViewById(R.id.blackbtn);
-		graybtn = (ImageButton)findViewById(R.id.graybtn);
-		redbtn = (ImageButton)findViewById(R.id.redbtn);
-		orangebtn = (ImageButton)findViewById(R.id.orangebtn);
-		yellowbtn = (ImageButton)findViewById(R.id.yellowbtn);
-		greenbtn = (ImageButton)findViewById(R.id.greenbtn);
-		bluebtn = (ImageButton)findViewById(R.id.bluebtn);
-		purplebtn = (ImageButton)findViewById(R.id.purplebtn);
-		
+
+
+		blackbtn = (ImageButton) findViewById(R.id.blackbtn);
+		graybtn = (ImageButton) findViewById(R.id.graybtn);
+		redbtn = (ImageButton) findViewById(R.id.redbtn);
+		orangebtn = (ImageButton) findViewById(R.id.orangebtn);
+		yellowbtn = (ImageButton) findViewById(R.id.yellowbtn);
+		greenbtn = (ImageButton) findViewById(R.id.greenbtn);
+		bluebtn = (ImageButton) findViewById(R.id.bluebtn);
+		purplebtn = (ImageButton) findViewById(R.id.purplebtn);
+
 		blackbtn.setBackgroundColor(Color.YELLOW);
 		graybtn.setBackgroundColor(Color.GRAY);
 		redbtn.setBackgroundColor(Color.GRAY);
@@ -93,7 +92,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		greenbtn.setBackgroundColor(Color.GRAY);
 		bluebtn.setBackgroundColor(Color.GRAY);
 		purplebtn.setBackgroundColor(Color.GRAY);
-		
+
 		blackbtn.setImageResource(R.drawable.black);
 		graybtn.setImageResource(R.drawable.gray);
 		redbtn.setImageResource(R.drawable.red);
@@ -102,8 +101,8 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		greenbtn.setImageResource(R.drawable.green);
 		bluebtn.setImageResource(R.drawable.blue);
 		purplebtn.setImageResource(R.drawable.purple);
-		
-		
+
+
 		wordbtn.setImageResource(R.drawable.word);
 		undobtn.setImageResource(R.drawable.undo);
 		clearbtn.setImageResource(R.drawable.clear);
@@ -112,7 +111,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		undobtn.setOnClickListener(this);
 		clearbtn.setOnClickListener(this);
 		eraserbtn.setOnClickListener(this);
-		
+
 		blackbtn.setOnClickListener(this);
 		graybtn.setOnClickListener(this);
 		redbtn.setOnClickListener(this);
@@ -121,36 +120,35 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		greenbtn.setOnClickListener(this);
 		bluebtn.setOnClickListener(this);
 		purplebtn.setOnClickListener(this);
-		
+
 		widthMenu = (Spinner) findViewById(R.id.widthMenu);
-		
-		SimpleImageArrayAdapter adapter = new SimpleImageArrayAdapter(this, 
-		        new Integer[]{R.drawable.width1, R.drawable.width2, R.drawable.width4, R.drawable.width8, R.drawable.width16, R.drawable.width32, R.drawable.width64, R.drawable.width128, R.drawable.width256});
+
+		SimpleImageArrayAdapter adapter = new SimpleImageArrayAdapter(this,
+				new Integer[]{R.drawable.width1, R.drawable.width2, R.drawable.width4, R.drawable.width8, R.drawable.width16, R.drawable.width32, R.drawable.width64, R.drawable.width128, R.drawable.width256});
 		widthMenu.setAdapter(adapter);
 		widthMenu.setOnItemSelectedListener(this);
 		widthMenu.setSelection(2);
 
-		
+
 		try {
 			AssetManager am = getAssets();
 			InputStream is = am.open("wordslist.csv");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 
-			String line;	
-			
-	        while ((line = reader.readLine()) != null) {
-	           	 String[] row = line.split(",");
-	             RowData.add(row);	      
-	             counter += 1;
-	        }
+			String line;
 
-	        is.close();
-				
-		} 
-		catch (Exception e){
+			while ((line = reader.readLine()) != null) {
+				String[] row = line.split(",");
+				RowData.add(row);
+				counter += 1;
+			}
+
+			is.close();
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-			
+
 	}
 
 	@Override
@@ -166,49 +164,45 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		
+
 		if (id == R.id.save_image) {
 			AlertDialog.Builder saveDialog = new AlertDialog.Builder(this);
 			saveDialog.setTitle("Save drawing");
 			saveDialog.setMessage("Save drawing to device Gallery?");
-			saveDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
-			    public void onClick(DialogInterface dialog, int which){
-			    	
-			    	customCanvas.setDrawingCacheEnabled(true);
-			    	String imgSaved = null;
-			    	try{
-				    	imgSaved = MediaStore.Images.Media.insertImage(
-				    		    getContentResolver(), customCanvas.getDrawingCache(),
-				    		    UUID.randomUUID().toString()+".png", "drawing");
-			    	}
-			    	catch (Exception e){
-			    		// Error saving image
-			    	}
-			    	finally{
-			    		if(imgSaved!=null){
-				    	    Toast savedToast = Toast.makeText(getApplicationContext(), 
-				    	        "Drawing saved to Gallery!", Toast.LENGTH_SHORT);
-				    	    savedToast.show();
-				    	}
-				    	else{
-				    	    Toast unsavedToast = Toast.makeText(getApplicationContext(), 
-				    	        "Oops! Image could not be saved.", Toast.LENGTH_SHORT);
-				    	    unsavedToast.show();
-				    	}
-				    	
-				    	customCanvas.destroyDrawingCache();
-			    	}
-			    }
+			saveDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+
+					customCanvas.setDrawingCacheEnabled(true);
+					String imgSaved = null;
+					try {
+						imgSaved = MediaStore.Images.Media.insertImage(
+								getContentResolver(), customCanvas.getDrawingCache(),
+								UUID.randomUUID().toString() + ".png", "drawing");
+					} catch (Exception e) {
+						// Error saving image
+					} finally {
+						if (imgSaved != null) {
+							Toast savedToast = Toast.makeText(getApplicationContext(),
+									"Drawing saved to Gallery!", Toast.LENGTH_SHORT);
+							savedToast.show();
+						} else {
+							Toast unsavedToast = Toast.makeText(getApplicationContext(),
+									"Oops! Image could not be saved.", Toast.LENGTH_SHORT);
+							unsavedToast.show();
+						}
+
+						customCanvas.destroyDrawingCache();
+					}
+				}
 			});
-			saveDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
-			    public void onClick(DialogInterface dialog, int which){
-			        dialog.cancel();
-			    }
+			saveDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.cancel();
+				}
 			});
 			saveDialog.show();
 			return true;
-		}
-		else if (id == R.id.playstore) {
+		} else if (id == R.id.playstore) {
 			Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://play.google.com/store/apps/details?id=com.jeffreychan.paintaword&hl=en"));
 			startActivity(intent);
 		}
@@ -217,27 +211,24 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 
 	@Override
 	public void onClick(View v) {
-		if (v.getId() == R.id.wordbtn){
+		if (v.getId() == R.id.wordbtn) {
 			customCanvas.clearCanvas();
 			int num = ran.nextInt(counter);
 			String[] test = RowData.get(num);
-			textView1.setText(test[0]);	
+			textView1.setText(test[0]);
 			new Thread(new Task()).start();
-			
-			
-		}
-		else if (v.getId() == R.id.clearbtn){
+
+
+		} else if (v.getId() == R.id.clearbtn) {
 			customCanvas.clearCanvas();
 			textView1.setText("");
+		} else if (v.getId() == R.id.undobtn) {
+			customCanvas.undoCanvas();
 		}
-			
-		else if (v.getId() == R.id.undobtn){
-			customCanvas.undoCanvas();	
-		}
-		
-		if (v.getId() == R.id.blackbtn){
-			customCanvas.setColor("black");		
-			blackbtn.setBackgroundColor(Color.YELLOW);	
+
+		if (v.getId() == R.id.blackbtn) {
+			customCanvas.setColor("black");
+			blackbtn.setBackgroundColor(Color.YELLOW);
 			graybtn.setBackgroundColor(Color.GRAY);
 			redbtn.setBackgroundColor(Color.GRAY);
 			orangebtn.setBackgroundColor(Color.GRAY);
@@ -246,12 +237,10 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			bluebtn.setBackgroundColor(Color.GRAY);
 			purplebtn.setBackgroundColor(Color.GRAY);
 			eraserbtn.setBackgroundResource(android.R.drawable.btn_default);
-			
-		}
-		
-		else if (v.getId() == R.id.redbtn){
-			customCanvas.setColor("red");	
-			blackbtn.setBackgroundColor(Color.GRAY);	
+
+		} else if (v.getId() == R.id.redbtn) {
+			customCanvas.setColor("red");
+			blackbtn.setBackgroundColor(Color.GRAY);
 			graybtn.setBackgroundColor(Color.GRAY);
 			redbtn.setBackgroundColor(Color.YELLOW);
 			orangebtn.setBackgroundColor(Color.GRAY);
@@ -260,11 +249,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			bluebtn.setBackgroundColor(Color.GRAY);
 			purplebtn.setBackgroundColor(Color.GRAY);
 			eraserbtn.setBackgroundResource(android.R.drawable.btn_default);
-		}
-		
-		else if (v.getId() == R.id.greenbtn){
-			customCanvas.setColor("green");	
-			blackbtn.setBackgroundColor(Color.GRAY);	
+		} else if (v.getId() == R.id.greenbtn) {
+			customCanvas.setColor("green");
+			blackbtn.setBackgroundColor(Color.GRAY);
 			graybtn.setBackgroundColor(Color.GRAY);
 			redbtn.setBackgroundColor(Color.GRAY);
 			orangebtn.setBackgroundColor(Color.GRAY);
@@ -273,11 +260,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			bluebtn.setBackgroundColor(Color.GRAY);
 			purplebtn.setBackgroundColor(Color.GRAY);
 			eraserbtn.setBackgroundResource(android.R.drawable.btn_default);
-		}
-		
-		else if (v.getId() == R.id.bluebtn){
-			customCanvas.setColor("blue");	
-			blackbtn.setBackgroundColor(Color.GRAY);	
+		} else if (v.getId() == R.id.bluebtn) {
+			customCanvas.setColor("blue");
+			blackbtn.setBackgroundColor(Color.GRAY);
 			graybtn.setBackgroundColor(Color.GRAY);
 			redbtn.setBackgroundColor(Color.GRAY);
 			orangebtn.setBackgroundColor(Color.GRAY);
@@ -286,11 +271,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			bluebtn.setBackgroundColor(Color.YELLOW);
 			purplebtn.setBackgroundColor(Color.GRAY);
 			eraserbtn.setBackgroundResource(android.R.drawable.btn_default);
-		}
-		
-		else if (v.getId() == R.id.orangebtn){
-			customCanvas.setColor("orange");	
-			blackbtn.setBackgroundColor(Color.GRAY);	
+		} else if (v.getId() == R.id.orangebtn) {
+			customCanvas.setColor("orange");
+			blackbtn.setBackgroundColor(Color.GRAY);
 			graybtn.setBackgroundColor(Color.GRAY);
 			redbtn.setBackgroundColor(Color.GRAY);
 			orangebtn.setBackgroundColor(Color.YELLOW);
@@ -299,11 +282,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			bluebtn.setBackgroundColor(Color.GRAY);
 			purplebtn.setBackgroundColor(Color.GRAY);
 			eraserbtn.setBackgroundResource(android.R.drawable.btn_default);
-		}
-		
-		else if (v.getId() == R.id.purplebtn){
-			customCanvas.setColor("purple");	
-			blackbtn.setBackgroundColor(Color.GRAY);	
+		} else if (v.getId() == R.id.purplebtn) {
+			customCanvas.setColor("purple");
+			blackbtn.setBackgroundColor(Color.GRAY);
 			graybtn.setBackgroundColor(Color.GRAY);
 			redbtn.setBackgroundColor(Color.GRAY);
 			orangebtn.setBackgroundColor(Color.GRAY);
@@ -312,11 +293,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			bluebtn.setBackgroundColor(Color.GRAY);
 			purplebtn.setBackgroundColor(Color.YELLOW);
 			eraserbtn.setBackgroundResource(android.R.drawable.btn_default);
-		}
-		
-		else if (v.getId() == R.id.yellowbtn){
-			customCanvas.setColor("yellow");	
-			blackbtn.setBackgroundColor(Color.GRAY);	
+		} else if (v.getId() == R.id.yellowbtn) {
+			customCanvas.setColor("yellow");
+			blackbtn.setBackgroundColor(Color.GRAY);
 			graybtn.setBackgroundColor(Color.GRAY);
 			redbtn.setBackgroundColor(Color.GRAY);
 			orangebtn.setBackgroundColor(Color.GRAY);
@@ -325,11 +304,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			bluebtn.setBackgroundColor(Color.GRAY);
 			purplebtn.setBackgroundColor(Color.GRAY);
 			eraserbtn.setBackgroundResource(android.R.drawable.btn_default);
-		}
-		
-		else if (v.getId() == R.id.graybtn){
-			customCanvas.setColor("gray");	
-			blackbtn.setBackgroundColor(Color.GRAY);	
+		} else if (v.getId() == R.id.graybtn) {
+			customCanvas.setColor("gray");
+			blackbtn.setBackgroundColor(Color.GRAY);
 			graybtn.setBackgroundColor(Color.YELLOW);
 			redbtn.setBackgroundColor(Color.GRAY);
 			orangebtn.setBackgroundColor(Color.GRAY);
@@ -338,11 +315,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			bluebtn.setBackgroundColor(Color.GRAY);
 			purplebtn.setBackgroundColor(Color.GRAY);
 			eraserbtn.setBackgroundResource(android.R.drawable.btn_default);
-		}
-		
-		else if (v.getId() == R.id.eraserbtn){
-			customCanvas.setColor("white");	
-			blackbtn.setBackgroundColor(Color.GRAY);	
+		} else if (v.getId() == R.id.eraserbtn) {
+			customCanvas.setColor("white");
+			blackbtn.setBackgroundColor(Color.GRAY);
 			graybtn.setBackgroundColor(Color.GRAY);
 			redbtn.setBackgroundColor(Color.GRAY);
 			orangebtn.setBackgroundColor(Color.GRAY);
@@ -355,7 +330,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		}
 	}
 
-	public class Task implements Runnable{
+	public class Task implements Runnable {
 		@Override
 		public void run() {
 			if (ready) {
@@ -368,10 +343,10 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 				handler.post(new Runnable() {
 					@Override
 					public void run() {
-						textView1.setText("");	
+						textView1.setText("");
 						ready = true;
 					}
-				});	
+				});
 			}
 		}
 	}
@@ -379,12 +354,11 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	@SuppressWarnings("rawtypes")
 	@Override
 	public void onItemSelected(AdapterView parent, View view, int position, long id) {
-		
+
 		Integer iPos = 1 << position;
-    	customCanvas.setWidth(iPos.toString()); 
-  
-    	
-		
+		customCanvas.setWidth(iPos.toString());
+
+
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -392,8 +366,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	public void onNothingSelected(AdapterView parent) {
 		// Do nothing
 	}
-	
-	
-	
-	
+
+
 }
