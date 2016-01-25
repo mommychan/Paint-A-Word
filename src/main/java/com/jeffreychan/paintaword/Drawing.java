@@ -20,9 +20,9 @@ public class Drawing extends View {
 
 	private Paint currentPaint;
 	Context context;
-	private static final int MAX_PATHS = 100;
-	ArrayList<Paint> mPaint = new ArrayList<>(MAX_PATHS);
-	ArrayList<Path> pathList = new ArrayList<>(MAX_PATHS);
+	private static final int DEFAULT_MAX_PATHS = 100;
+	ArrayList<Paint> mPaint = new ArrayList<>(DEFAULT_MAX_PATHS);
+	ArrayList<Path> pathList = new ArrayList<>(DEFAULT_MAX_PATHS);
 
 	private float mX, mY;
 	private static final float TOLERANCE = 5;
@@ -37,7 +37,7 @@ public class Drawing extends View {
 		context = c;
 
 		// Initialize all the paths and paints	
-		for (int i = 0; i < MAX_PATHS; i++) {
+		for (int i = 0; i < DEFAULT_MAX_PATHS; i++) {
 			pathList.add(i, new Path());
 			mPaint.add(i, new Paint());
 			mPaint.get(i).setAntiAlias(true);
@@ -105,10 +105,10 @@ public class Drawing extends View {
 
 	public void clearCanvas() {
 
-		if (index >= 100) {
-			pathList.subList(100, pathList.size()).clear();
+		if (index >= DEFAULT_MAX_PATHS) {
+			pathList.subList(DEFAULT_MAX_PATHS, pathList.size()).clear();
 			pathList.trimToSize();
-			mPaint.subList(100, mPaint.size()).clear();
+			mPaint.subList(DEFAULT_MAX_PATHS, mPaint.size()).clear();
 			mPaint.trimToSize();
 		}
 
