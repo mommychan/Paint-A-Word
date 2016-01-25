@@ -20,7 +20,7 @@ public class Drawing extends View {
 
 	private Paint currentPaint;
 	Context context;
-	private static final int DEFAULT_MAX_PATHS = 100;
+	private static final int DEFAULT_MAX_PATHS = 10;
 	ArrayList<Paint> mPaint = new ArrayList<>(DEFAULT_MAX_PATHS);
 	ArrayList<Path> pathList = new ArrayList<>(DEFAULT_MAX_PATHS);
 
@@ -331,8 +331,9 @@ public class Drawing extends View {
 				upTouch();
 				index += 1;
 
-				if (pathList.size() - index <= 10) {
-					for (int i = 0; i < 50; i++) {
+				// If all paths are used, add 10 more
+				if (pathList.size() == index) {
+					for (int i = 0; i < 10; i++) {
 						pathList.add(new Path());
 						mPaint.add(new Paint());
 						mPaint.get(mPaint.size() - 1).setAntiAlias(true);
