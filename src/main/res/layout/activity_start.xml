@@ -16,12 +16,10 @@
         android:id="@+id/imageView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:adjustViewBounds="true"
-        android:contentDescription="@+string/start_image"
+        android:contentDescription="@string/start_image"
         android:cropToPadding="true"
         android:scaleType="fitXY"
-        android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
+        android:background="@drawable/drawing_title" />
 
 </RelativeLayout>

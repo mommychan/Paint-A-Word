@@ -27,86 +27,54 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ImageButton;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnClickListener, OnItemSelectedListener {
 
-	ImageButton wordbtn, undobtn, clearbtn, eraserbtn;
+	ImageView wordbtn, undobtn, clearbtn, eraserbtn;
 	Spinner widthMenu;
-	TextView textView1;
-	RelativeLayout rel1;
+	TextView word;
 	private static int counter = 0;
 	ArrayList<String[]> RowData = new ArrayList<>();
 	Random ran = new Random();
 	private Drawing customCanvas;
 	Handler handler;
 	boolean ready = true;
-	ImageButton blackbtn, graybtn, redbtn, orangebtn, yellowbtn, greenbtn, bluebtn, purplebtn;
+	ImageView blackbtn, graybtn, redbtn, orangebtn, yellowbtn, greenbtn, bluebtn, purplebtn;
+	ImageView current;
 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_main);
 
 		customCanvas = (Drawing) findViewById(R.id.signature_canvas);
 		customCanvas.setBackgroundColor(Color.WHITE);
 
+		wordbtn = (ImageView) findViewById(R.id.wordbtn);
+		undobtn = (ImageView) findViewById(R.id.undobtn);
+		clearbtn = (ImageView) findViewById(R.id.clearbtn);
+		eraserbtn = (ImageView) findViewById(R.id.eraserbtn);
+		current = (ImageView) findViewById(R.id.current);
+		word = (TextView) findViewById(R.id.word);
 
-		wordbtn = (ImageButton) findViewById(R.id.wordbtn);
-		undobtn = (ImageButton) findViewById(R.id.undobtn);
-		clearbtn = (ImageButton) findViewById(R.id.clearbtn);
-		eraserbtn = (ImageButton) findViewById(R.id.eraserbtn);
-
-		wordbtn.setBackgroundResource(android.R.drawable.btn_default);
-		undobtn.setBackgroundResource(android.R.drawable.btn_default);
-		clearbtn.setBackgroundResource(android.R.drawable.btn_default);
-		eraserbtn.setBackgroundResource(android.R.drawable.btn_default);
-
-		textView1 = (TextView) findViewById(R.id.textView1);
-		rel1 = (RelativeLayout) findViewById(R.id.RelativeLayout1);
 		handler = new Handler();
 
+		blackbtn = (ImageView) findViewById(R.id.blackbtn);
+		graybtn = (ImageView) findViewById(R.id.graybtn);
+		redbtn = (ImageView) findViewById(R.id.redbtn);
+		orangebtn = (ImageView) findViewById(R.id.orangebtn);
+		yellowbtn = (ImageView) findViewById(R.id.yellowbtn);
+		greenbtn = (ImageView) findViewById(R.id.greenbtn);
+		bluebtn = (ImageView) findViewById(R.id.bluebtn);
+		purplebtn = (ImageView) findViewById(R.id.purplebtn);
 
-		blackbtn = (ImageButton) findViewById(R.id.blackbtn);
-		graybtn = (ImageButton) findViewById(R.id.graybtn);
-		redbtn = (ImageButton) findViewById(R.id.redbtn);
-		orangebtn = (ImageButton) findViewById(R.id.orangebtn);
-		yellowbtn = (ImageButton) findViewById(R.id.yellowbtn);
-		greenbtn = (ImageButton) findViewById(R.id.greenbtn);
-		bluebtn = (ImageButton) findViewById(R.id.bluebtn);
-		purplebtn = (ImageButton) findViewById(R.id.purplebtn);
-
-		blackbtn.setBackgroundColor(Color.YELLOW);
-		graybtn.setBackgroundColor(Color.GRAY);
-		redbtn.setBackgroundColor(Color.GRAY);
-		orangebtn.setBackgroundColor(Color.GRAY);
-		yellowbtn.setBackgroundColor(Color.GRAY);
-		greenbtn.setBackgroundColor(Color.GRAY);
-		bluebtn.setBackgroundColor(Color.GRAY);
-		purplebtn.setBackgroundColor(Color.GRAY);
-
-		blackbtn.setImageResource(R.drawable.black);
-		graybtn.setImageResource(R.drawable.gray);
-		redbtn.setImageResource(R.drawable.red);
-		orangebtn.setImageResource(R.drawable.orange);
-		yellowbtn.setImageResource(R.drawable.yellow);
-		greenbtn.setImageResource(R.drawable.green);
-		bluebtn.setImageResource(R.drawable.blue);
-		purplebtn.setImageResource(R.drawable.purple);
-
-
-		wordbtn.setImageResource(R.drawable.word);
-		undobtn.setImageResource(R.drawable.undo);
-		clearbtn.setImageResource(R.drawable.clear);
-		eraserbtn.setImageResource(R.drawable.eraser);
 		wordbtn.setOnClickListener(this);
 		undobtn.setOnClickListener(this);
 		clearbtn.setOnClickListener(this);
@@ -153,16 +121,13 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
+
 		int id = item.getItemId();
 
 		if (id == R.id.save_image) {
@@ -215,118 +180,40 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			customCanvas.clearCanvas();
 			int num = ran.nextInt(counter);
 			String[] test = RowData.get(num);
-			textView1.setText(test[0]);
+			word.setText(test[0]);
 			new Thread(new Task()).start();
-
-
 		} else if (v.getId() == R.id.clearbtn) {
 			customCanvas.clearCanvas();
-			textView1.setText("");
+			word.setText("");
 		} else if (v.getId() == R.id.undobtn) {
 			customCanvas.undoCanvas();
-		}
-
-		if (v.getId() == R.id.blackbtn) {
+		} else if (v.getId() == R.id.blackbtn) {
 			customCanvas.setColor("black");
-			blackbtn.setBackgroundColor(Color.YELLOW);
-			graybtn.setBackgroundColor(Color.GRAY);
-			redbtn.setBackgroundColor(Color.GRAY);
-			orangebtn.setBackgroundColor(Color.GRAY);
-			yellowbtn.setBackgroundColor(Color.GRAY);
-			greenbtn.setBackgroundColor(Color.GRAY);
-			bluebtn.setBackgroundColor(Color.GRAY);
-			purplebtn.setBackgroundColor(Color.GRAY);
-			eraserbtn.setBackgroundResource(android.R.drawable.btn_default);
-
+			current.setBackgroundResource(R.drawable.black);
 		} else if (v.getId() == R.id.redbtn) {
 			customCanvas.setColor("red");
-			blackbtn.setBackgroundColor(Color.GRAY);
-			graybtn.setBackgroundColor(Color.GRAY);
-			redbtn.setBackgroundColor(Color.YELLOW);
-			orangebtn.setBackgroundColor(Color.GRAY);
-			yellowbtn.setBackgroundColor(Color.GRAY);
-			greenbtn.setBackgroundColor(Color.GRAY);
-			bluebtn.setBackgroundColor(Color.GRAY);
-			purplebtn.setBackgroundColor(Color.GRAY);
-			eraserbtn.setBackgroundResource(android.R.drawable.btn_default);
+			current.setBackgroundResource(R.drawable.red);
 		} else if (v.getId() == R.id.greenbtn) {
 			customCanvas.setColor("green");
-			blackbtn.setBackgroundColor(Color.GRAY);
-			graybtn.setBackgroundColor(Color.GRAY);
-			redbtn.setBackgroundColor(Color.GRAY);
-			orangebtn.setBackgroundColor(Color.GRAY);
-			yellowbtn.setBackgroundColor(Color.GRAY);
-			greenbtn.setBackgroundColor(Color.YELLOW);
-			bluebtn.setBackgroundColor(Color.GRAY);
-			purplebtn.setBackgroundColor(Color.GRAY);
-			eraserbtn.setBackgroundResource(android.R.drawable.btn_default);
+			current.setBackgroundResource(R.drawable.green);
 		} else if (v.getId() == R.id.bluebtn) {
 			customCanvas.setColor("blue");
-			blackbtn.setBackgroundColor(Color.GRAY);
-			graybtn.setBackgroundColor(Color.GRAY);
-			redbtn.setBackgroundColor(Color.GRAY);
-			orangebtn.setBackgroundColor(Color.GRAY);
-			yellowbtn.setBackgroundColor(Color.GRAY);
-			greenbtn.setBackgroundColor(Color.GRAY);
-			bluebtn.setBackgroundColor(Color.YELLOW);
-			purplebtn.setBackgroundColor(Color.GRAY);
-			eraserbtn.setBackgroundResource(android.R.drawable.btn_default);
+			current.setBackgroundResource(R.drawable.blue);
 		} else if (v.getId() == R.id.orangebtn) {
 			customCanvas.setColor("orange");
-			blackbtn.setBackgroundColor(Color.GRAY);
-			graybtn.setBackgroundColor(Color.GRAY);
-			redbtn.setBackgroundColor(Color.GRAY);
-			orangebtn.setBackgroundColor(Color.YELLOW);
-			yellowbtn.setBackgroundColor(Color.GRAY);
-			greenbtn.setBackgroundColor(Color.GRAY);
-			bluebtn.setBackgroundColor(Color.GRAY);
-			purplebtn.setBackgroundColor(Color.GRAY);
-			eraserbtn.setBackgroundResource(android.R.drawable.btn_default);
+			current.setBackgroundResource(R.drawable.orange);
 		} else if (v.getId() == R.id.purplebtn) {
 			customCanvas.setColor("purple");
-			blackbtn.setBackgroundColor(Color.GRAY);
-			graybtn.setBackgroundColor(Color.GRAY);
-			redbtn.setBackgroundColor(Color.GRAY);
-			orangebtn.setBackgroundColor(Color.GRAY);
-			yellowbtn.setBackgroundColor(Color.GRAY);
-			greenbtn.setBackgroundColor(Color.GRAY);
-			bluebtn.setBackgroundColor(Color.GRAY);
-			purplebtn.setBackgroundColor(Color.YELLOW);
-			eraserbtn.setBackgroundResource(android.R.drawable.btn_default);
+			current.setBackgroundResource(R.drawable.purple);
 		} else if (v.getId() == R.id.yellowbtn) {
 			customCanvas.setColor("yellow");
-			blackbtn.setBackgroundColor(Color.GRAY);
-			graybtn.setBackgroundColor(Color.GRAY);
-			redbtn.setBackgroundColor(Color.GRAY);
-			orangebtn.setBackgroundColor(Color.GRAY);
-			yellowbtn.setBackgroundColor(Color.YELLOW);
-			greenbtn.setBackgroundColor(Color.GRAY);
-			bluebtn.setBackgroundColor(Color.GRAY);
-			purplebtn.setBackgroundColor(Color.GRAY);
-			eraserbtn.setBackgroundResource(android.R.drawable.btn_default);
+			current.setBackgroundResource(R.drawable.yellow);
 		} else if (v.getId() == R.id.graybtn) {
 			customCanvas.setColor("gray");
-			blackbtn.setBackgroundColor(Color.GRAY);
-			graybtn.setBackgroundColor(Color.YELLOW);
-			redbtn.setBackgroundColor(Color.GRAY);
-			orangebtn.setBackgroundColor(Color.GRAY);
-			yellowbtn.setBackgroundColor(Color.GRAY);
-			greenbtn.setBackgroundColor(Color.GRAY);
-			bluebtn.setBackgroundColor(Color.GRAY);
-			purplebtn.setBackgroundColor(Color.GRAY);
-			eraserbtn.setBackgroundResource(android.R.drawable.btn_default);
+			current.setBackgroundResource(R.drawable.gray);
 		} else if (v.getId() == R.id.eraserbtn) {
 			customCanvas.setColor("white");
-			blackbtn.setBackgroundColor(Color.GRAY);
-			graybtn.setBackgroundColor(Color.GRAY);
-			redbtn.setBackgroundColor(Color.GRAY);
-			orangebtn.setBackgroundColor(Color.GRAY);
-			yellowbtn.setBackgroundColor(Color.GRAY);
-			greenbtn.setBackgroundColor(Color.GRAY);
-			bluebtn.setBackgroundColor(Color.GRAY);
-			purplebtn.setBackgroundColor(Color.GRAY);
-			eraserbtn.setBackgroundColor(Color.YELLOW);
-
+			current.setBackgroundResource(R.drawable.eraser);
 		}
 	}
 
@@ -343,7 +230,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 				handler.post(new Runnable() {
 					@Override
 					public void run() {
-						textView1.setText("");
+						word.setText("");
 						ready = true;
 					}
 				});

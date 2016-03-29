@@ -1,159 +1,192 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/FrameLayout1"
+    android:id="@+id/rl"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"  >
-    
-    <com.jeffreychan.paintaword.Drawing
-        android:id="@+id/signature_canvas"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textColor="#FFFFFF" />
+    android:layout_height="match_parent"
+    >
 
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent" 
-        android:id="@+id/RelativeLayout1" >
+        android:id="@+id/RelativeLayout1"
+        android:weightSum="10"
+        >
 
-        <ImageButton
-            android:id="@+id/wordbtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:contentDescription="@+string/get_word"
-            android:padding="5dp"
-            android:src="@drawable/word" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/topBar"
+            android:layout_weight="1"
+            >
 
-        <ImageButton
-            android:id="@+id/clearbtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:contentDescription="@+string/clear"
-            android:padding="5dp"
-            android:src="@drawable/clear" />
+            <ImageView
+                android:id="@+id/wordbtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/get_word"
+                android:background="@drawable/word"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                />
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text=""
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            <ImageView
+                android:id="@+id/clearbtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/clear"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:background="@drawable/clear" />
 
-        <ImageButton
-            android:id="@+id/blackbtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="6dp"
-            android:contentDescription="@+string/black"
-            android:padding="2dp"
-            android:src="@drawable/black" />
+            <ImageView
+                android:id="@+id/undobtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/undo"
+                android:layout_weight="1"
+                android:background="@drawable/undo"
+                android:layout_margin="5dp"
+                />
 
-        <ImageButton
-            android:id="@+id/graybtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/blackbtn"
-            android:layout_toRightOf="@+id/blackbtn"
-            android:contentDescription="@+string/gray"
-            android:padding="2dp"
-            android:src="@drawable/gray" />
+            <ImageView
+                android:id="@+id/current"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/eraser"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:background="@drawable/black" />
 
-        <ImageButton
-            android:id="@+id/redbtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/graybtn"
-            android:layout_toRightOf="@+id/graybtn"
-            android:contentDescription="@+string/red"
-            android:padding="2dp"
-            android:src="@drawable/red" />
-        
-        <ImageButton
-            android:id="@+id/orangebtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/redbtn"
-            android:layout_toRightOf="@+id/redbtn"
-            android:contentDescription="@+string/orange"
-            android:padding="2dp"
-            android:src="@drawable/orange" />
+        </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/yellowbtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/orangebtn"
-            android:layout_toRightOf="@+id/orangebtn"
-            android:contentDescription="@+string/yellow"
-            android:padding="2dp"
-            android:src="@drawable/yellow" />
+        <com.jeffreychan.paintaword.Drawing
+            android:id="@+id/signature_canvas"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:textColor="#FFFFFF"
+            android:layout_weight="8"
+            />
 
-        <ImageButton
-            android:id="@+id/greenbtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/yellowbtn"
-            android:layout_toRightOf="@+id/yellowbtn"
-            android:contentDescription="@+string/green"
-            android:padding="2dp"
-            android:src="@drawable/green" />
 
-        <ImageButton
-            android:id="@+id/bluebtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/greenbtn"
-            android:layout_toRightOf="@+id/greenbtn"
-            android:contentDescription="@+string/blue"
-            android:padding="2dp"
-            android:src="@drawable/blue" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/bottomBar"
+            android:layout_weight="1"
+            android:weightSum="11"
+            >
 
-        <ImageButton
-            android:id="@+id/purplebtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/bluebtn"
-            android:layout_toRightOf="@+id/bluebtn"
-            android:contentDescription="@+string/purple"
-            android:padding="2dp"
-            android:src="@drawable/purple" />
-        
-         <Spinner
-            android:id="@+id/widthMenu"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/blackbtn"
-            android:layout_alignParentLeft="true"
-            android:layout_alignRight="@+id/orangebtn"
-            android:contentDescription="@+string/width" />
+            <ImageView
+                android:id="@+id/blackbtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/black"
+                android:background="@drawable/black"
+                android:layout_weight="1"
+                android:padding="2dp"
+                />
 
-         <ImageButton
-             android:id="@+id/undobtn"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_alignParentTop="true"
-             android:layout_toLeftOf="@+id/clearbtn"
-             android:contentDescription="@+string/undo"
-             android:padding="5dp"
-             android:src="@drawable/undo" />
+            <ImageView
+                android:id="@+id/graybtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/gray"
+                android:layout_weight="1"
+                android:background="@drawable/gray"
+                android:padding="2dp"
+                />
 
-         <ImageButton
-             android:id="@+id/eraserbtn"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_alignParentTop="true"
-             android:layout_toLeftOf="@+id/undobtn"
-             android:contentDescription="@+string/eraser"
-             android:padding="5dp"
-             android:src="@drawable/eraser" />
+            <ImageView
+                android:id="@+id/redbtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/red"
+                android:layout_weight="1"
+                android:background="@drawable/red"
+                android:padding="2dp"
+                />
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/orangebtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/orange"
+                android:layout_weight="1"
+                android:background="@drawable/orange"
+                android:padding="2dp"
+                />
 
-</FrameLayout>
+            <ImageView
+                android:id="@+id/yellowbtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/yellow"
+                android:layout_weight="1"
+                android:background="@drawable/yellow"
+                android:padding="2dp"
+                />
+
+            <ImageView
+                android:id="@+id/greenbtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/green"
+                android:layout_weight="1"
+                android:background="@drawable/green"
+                android:padding="2dp"
+                />
+
+            <ImageView
+                android:id="@+id/bluebtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/blue"
+                android:layout_weight="1"
+                android:background="@drawable/blue"
+                android:padding="2dp"
+                />
+
+            <ImageView
+                android:id="@+id/purplebtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/purple"
+                android:layout_weight="1"
+                android:background="@drawable/purple"
+                android:padding="2dp"
+                />
+
+            <ImageView
+                android:id="@+id/eraserbtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/eraser"
+                android:layout_weight="1"
+                android:padding="2dp"
+                android:background="@drawable/eraser" />
+
+            <Spinner
+                android:id="@+id/widthMenu"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:contentDescription="@string/width"
+                android:padding="2dp"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/word"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text=""
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</RelativeLayout>
